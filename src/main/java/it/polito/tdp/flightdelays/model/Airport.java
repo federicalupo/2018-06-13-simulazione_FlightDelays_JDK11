@@ -1,5 +1,7 @@
 package it.polito.tdp.flightdelays.model;
 
+import com.javadocmd.simplelatlng.LatLng;
+
 public class Airport {
 
 	private String id;
@@ -7,8 +9,7 @@ public class Airport {
 	private String city;
 	private String state;
 	private String country;
-	private double latitude;
-	private double longitude;
+	private LatLng posizione;
 	
 	public Airport(String id, String name, String city, String state, String country, double latitude,
 			double longitude) {
@@ -17,8 +18,7 @@ public class Airport {
 		this.city = city;
 		this.state = state;
 		this.country = country;
-		this.latitude = latitude;
-		this.longitude = longitude;
+		this.posizione = new LatLng(latitude, longitude);
 	}
 
 	public String getId() {
@@ -61,28 +61,44 @@ public class Airport {
 		this.country = country;
 	}
 
-	public double getLatitude() {
-		return latitude;
+
+	public LatLng getPosizione() {
+		return posizione;
 	}
 
-	public void setLatitude(double latitude) {
-		this.latitude = latitude;
+	public void setPosizione(LatLng posizione) {
+		this.posizione = posizione;
 	}
 
-	public double getLongitude() {
-		return longitude;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
 	}
 
-	public void setLongitude(double longitude) {
-		this.longitude = longitude;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Airport other = (Airport) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Airport [name=");
 		builder.append(name);
-		builder.append("]");
 		return builder.toString();
 	}
 	
